@@ -38,6 +38,7 @@ class Cache{
     /**
      * Retrieves a key from the cache
      * @param {string} key
+     * @return {string}
      */
     retrieve(key){
         if(typeof this.data[key] !== 'undefined'){
