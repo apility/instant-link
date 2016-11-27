@@ -3,12 +3,12 @@
  * @module instant-link
  */
 
-import init from './src/init';
-import Cache from './src/cache';
-import handler from './src/handler';
-import fetchPage from './src/fetch-page';
-import replacePage from './src/replace-page';
-import noInstantExpr from './src/no-instant-expr';
+import init from './init';
+import Cache from './cache';
+import handler from './handler';
+import fetchPage from './fetch-page';
+import replacePage from './replace-page';
+import noInstantExpr from './no-instant-expr';
 
 /**
  * Creates a new InstantLink instance
