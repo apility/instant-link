@@ -2,7 +2,7 @@
   "name": "instant-link",
   "version": "0.0.1",
   "description": "Speeds up websites by preloading links on mouseover",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "node node_modules/.bin/webpack && node node_modules/.bin/webpack --minimize"
   },
