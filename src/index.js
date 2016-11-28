@@ -5,12 +5,12 @@
  * @module instant-link
  */
 
-import Cache from './cache';
+const Cache = require('./cache');
 
-import init from './init';
-import handler from './handler';
-import fetchPage from './fetch-page';
-import replacePage from './replace-page';
+const init = require('./init');
+const handler = require('./handler');
+const fetchPage = require('./fetch-page');
+const replacePage = require('./replace-page');
 
 class InstantLink{
     /**
@@ -39,6 +39,10 @@ InstantLink.prototype.handler = handler;
 InstantLink.prototype.fetchPage = fetchPage;
 InstantLink.prototype.replacePage = replacePage;
 
-if(typeof window !== 'undefined') window.InstantLink = InstantLink;
+if(typeof window === 'undefined'){
+    throw new ReferenceError('window is undefined, InstantLink must be run in a browser');
+}
 
-export default InstantLink;
+window.InstantLink = InstantLink;
+
+module.exports = InstantLink;

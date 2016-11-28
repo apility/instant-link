@@ -22,4 +22,4 @@ function replacePage(data, url){
     this.init();
 }
 
-export default replacePage;
+module.exports = replacePage;

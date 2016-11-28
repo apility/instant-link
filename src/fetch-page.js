@@ -35,4 +35,4 @@ function fetchPage(href){
     });
 }
 
-export default fetchPage;
+module.exports = fetchPage;

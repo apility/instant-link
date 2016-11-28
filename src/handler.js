@@ -70,4 +70,4 @@ function handler(e){
     }
 }
 
-export default handler;
+module.exports = handler;
