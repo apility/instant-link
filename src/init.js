@@ -7,6 +7,9 @@
  * Initializes InstantLink, and binds event handlers
  */
 const init = function(){
+    if(typeof window.history === 'undefined'){
+        return;
+    }
     if(document.location.href.indexOf('file://') != 0){
         let self = this;
         if(document.addEventListener){
