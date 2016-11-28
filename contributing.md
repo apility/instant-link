@@ -14,6 +14,8 @@ Make your changes. And build it. Test it by serving up the example under /exampl
 
     npm build
 
+If you are filing a bug report, make sure that you test it with the development build, not the minimized build.
+
 Push to your fork and [submit a pull request][pr].
 
 [pr]: https://github.com/apility/instant-link/compare/
