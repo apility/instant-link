@@ -27,6 +27,12 @@ That's basically all the boilerplate you need to get it going.
 
 Notice the `no-instant` data attribute. This can be put into any script or anchor tag.
 
+If you have enabled caching, but want to prevent caching of specific links, you can add the `no-cache` data attribute.
+
+```html
+<a href="index.php?foo=bar" data-no-cache>Dynamic link</a>
+```
+
 On a script, this tells InstantLink that the script should be removed if loaded via InstantLink. This can be used e.g to prevent two instances of InstantLink running at the same time.
 
 For regular links, this directive tells InstantLink to treat this link as a normal link, so clicking it will just redirect.
