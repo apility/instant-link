@@ -1,20 +1,27 @@
 {
   "name": "instant-link",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Speeds up websites by preloading links",
   "main": "dist/instant-link.js",
   "scripts": {
     "postinstall": "npm run build",
-    "build": "node node_modules/.bin/webpack && node node_modules/.bin/webpack --minimize"
+    "build": "node node_modules/.bin/webpack && node node_modules/.bin/webpack --minimize",
+    "prepublish": "npm run build"
   },
   "keywords": [
+    "apility",
+    "netflex",
     "speed",
     "instant",
     "link",
     "fast"
   ],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/apility/instant-link.git"
+  },
   "author": "Thomas Alrek <thomas@apility.no>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "webpack": "^1.13.3",
     "babel-core": "^6.18.0",
