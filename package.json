@@ -4,7 +4,6 @@
   "description": "Speeds up websites by preloading links",
   "main": "src/index.js",
   "scripts": {
-    "postinstall": "npm run build",
     "build": "node node_modules/.bin/webpack && node node_modules/.bin/webpack --minimize",
     "prepublish": "npm run build"
   },
