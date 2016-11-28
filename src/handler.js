@@ -28,6 +28,7 @@ function handler(e){
         let link = e.target;
         let href = link.href;
 
+        if (!/^https?:\/\//i.test(href)) return true;
         if(isExternalURL(href)) return true;
         if(link.getAttribute('data-no-instant') !== null) return true;
 
