@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Exports the init method
  * @module init

@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Exports the handler method
  * @module handler

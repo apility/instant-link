@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Exports the InstantLink class
  * @module instant-link

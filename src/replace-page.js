@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Exports the replacePage method
  * @module replace-page

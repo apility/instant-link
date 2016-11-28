@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Exports the fetchPage method
  * @module fetch-page

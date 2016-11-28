@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Exports the Cache class
  * @module cache
