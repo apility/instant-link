@@ -5,10 +5,10 @@ var package = require('./package.json');
 minimize = process.argv.indexOf('--minimize') !== -1;
 
 var conf = {
-    entry: ['babel-polyfill', './' + package.main],
+    entry: ['babel-polyfill', './src/index.js'],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'instant-link-' + package.version + '.js'
+        filename: package.name + '.js'
     },
     module: {
     loaders: [
@@ -35,7 +35,7 @@ var conf = {
 
 if(minimize){
     conf.plugins.push(new webpack.optimize.UglifyJsPlugin());
-    conf.output.filename = 'instant-link' + package.version + '.min.js'
+    conf.output.filename = package.name + '.min.js'
 }
 
 module.exports = conf;
