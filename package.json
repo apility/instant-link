@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "postinstall": "npm run build",
-    "build": "bash node_modules/.bin/webpack && bash node_modules/.bin/webpack --minimize",
+    "build": "node node_modules/.bin/webpack && node node_modules/.bin/webpack --minimize",
     "prepublish": "npm run build"
   },
   "keywords": [

@@ -8814,38 +8814,21 @@
 /* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	/**
+	 * Exports the InstantLink class
+	 * @module instant-link
+	 */
 	
-	var _cache = __webpack_require__(300);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var _cache2 = _interopRequireDefault(_cache);
+	var Cache = __webpack_require__(300);
 	
-	var _init = __webpack_require__(323);
-	
-	var _init2 = _interopRequireDefault(_init);
-	
-	var _handler = __webpack_require__(324);
-	
-	var _handler2 = _interopRequireDefault(_handler);
-	
-	var _fetchPage = __webpack_require__(325);
-	
-	var _fetchPage2 = _interopRequireDefault(_fetchPage);
-	
-	var _replacePage = __webpack_require__(326);
-	
-	var _replacePage2 = _interopRequireDefault(_replacePage);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
-	                                                                                                                                                           * Exports the InstantLink class
-	                                                                                                                                                           * @module instant-link
-	                                                                                                                                                           */
+	var init = __webpack_require__(323);
+	var handler = __webpack_require__(324);
+	var fetchPage = __webpack_require__(325);
+	var replacePage = __webpack_require__(326);
 	
 	var InstantLink =
 	/**
@@ -8866,37 +8849,37 @@
 	        comment: true
 	    };
 	    this.options = Object.assign(this.options, options);
-	    if (this.options.cache) this.cache = new _cache2.default(this.options.compress);
+	    if (this.options.cache) this.cache = new Cache(this.options.compress);
 	    this.init();
 	};
 	
-	InstantLink.prototype.init = _init2.default;
-	InstantLink.prototype.handler = _handler2.default;
-	InstantLink.prototype.fetchPage = _fetchPage2.default;
-	InstantLink.prototype.replacePage = _replacePage2.default;
+	InstantLink.prototype.init = init;
+	InstantLink.prototype.handler = handler;
+	InstantLink.prototype.fetchPage = fetchPage;
+	InstantLink.prototype.replacePage = replacePage;
 	
-	if (typeof window !== 'undefined') window.InstantLink = InstantLink;
+	if (typeof window === 'undefined') {
+	    throw new ReferenceError('window is undefined, InstantLink must be run in a browser');
+	}
 	
-	exports.default = InstantLink;
+	window.InstantLink = InstantLink;
+	
+	module.exports = InstantLink;
 
 /***/ },
 /* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
 	
 	/**
 	 * Exports the Cache class
 	 * @module cache
 	 */
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var lzma = __webpack_require__(305);
 	
@@ -8965,7 +8948,7 @@
 	    return Cache;
 	}();
 	
-	exports.default = Cache;
+	module.exports = Cache;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(301).Buffer))
 
 /***/ },
@@ -14241,11 +14224,8 @@
 /* 323 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
 	/**
 	 * Exports the init method
 	 * @module init
@@ -14254,6 +14234,7 @@
 	/**
 	 * Initializes InstantLink, and binds event handlers
 	 */
+	
 	function init() {
 	    var _this = this;
 	
@@ -14292,19 +14273,13 @@
 	    }
 	}
 	
-	exports.default = init;
+	module.exports = init;
 
 /***/ },
 /* 324 */
 /***/ function(module, exports) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	"use strict";
 	
 	/**
 	 * Exports the handler method
@@ -14316,6 +14291,9 @@
 	 * @param {string} url
 	 * @returns {boolean}
 	 */
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
 	function isExternalURL(url) {
 	    var domain = function domain(url) {
 	        return url.replace('http://', '').replace('https://', '').split('/')[0];
@@ -14385,7 +14363,7 @@
 	    }
 	}
 	
-	exports.default = handler;
+	module.exports = handler;
 
 /***/ },
 /* 325 */
@@ -14393,9 +14371,6 @@
 
 	"use strict";
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
 	/**
 	 * Exports the fetchPage method
 	 * @module fetch-page
@@ -14407,6 +14382,7 @@
 	 * @param {string} href - URL to fetch
 	 * @returns {Promise}
 	 */
+	
 	function fetchPage(href) {
 	    var localURLexpr = new RegExp("//" + location.host + "($|/)");
 	    var isLocal = href.substring(0, 4) === "http" ? localURLexpr.test(href) : true;
@@ -14431,7 +14407,7 @@
 	    });
 	}
 	
-	exports.default = fetchPage;
+	module.exports = fetchPage;
 
 /***/ },
 /* 326 */
@@ -14439,9 +14415,6 @@
 
 	"use strict";
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	/**
 	 * Exports the replacePage method
 	 * @module replace-page
@@ -14464,7 +14437,7 @@
 	  this.init();
 	}
 	
-	exports.default = replacePage;
+	module.exports = replacePage;
 
 /***/ }
 /******/ ]);
