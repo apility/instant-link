@@ -35,8 +35,7 @@ var conf = {
 
 if(minimize){
     conf.plugins.push(new webpack.optimize.UglifyJsPlugin());
-    conf.output.filename = package.name + '.min.js'
-    delete conf.devtool;
+    conf.output.filename = package.name + '.min.js';
 }
 
 module.exports = conf;
