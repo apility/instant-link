@@ -1,9 +1,10 @@
 {
   "name": "instant-link",
-  "version": "0.0.1",
-  "description": "Speeds up websites by preloading links on mouseover",
-  "main": "src/index.js",
+  "version": "0.0.2",
+  "description": "Speeds up websites by preloading links",
+  "main": "dist/instant-link.js",
   "scripts": {
+    "postinstall": "npm run build",
     "build": "node node_modules/.bin/webpack && node node_modules/.bin/webpack --minimize"
   },
   "keywords": [
