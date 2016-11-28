@@ -10,9 +10,6 @@ import handler from './handler';
 import fetchPage from './fetch-page';
 import replacePage from './replace-page';
 
-const regex = /<script(.+)? ?data-no-instant(.+)? ?>((.|\n|\r| )+)?<\/script>/igm;
-const placeholder = "<!-- script removed - data-no-instant attribute -->";
-
 class InstantLink{
     /**
      * Creates a new InstantLink instance
