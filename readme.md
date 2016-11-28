@@ -2,7 +2,9 @@
 
 A library that makes your link's lightning fast.
 
-Inspired by http://instantclick.io/
+### Installation
+
+`npm install --save instant-link`
 
 ### How it works
 

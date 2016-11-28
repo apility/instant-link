@@ -1,11 +1,14 @@
 {
   "name": "instant-link",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Speeds up websites by preloading links",
   "main": "dist/instant-link.js",
+  "engines": { 
+    "node": ">=7.0.0"
+  },
   "scripts": {
     "postinstall": "npm run build",
-    "build": "node node_modules/.bin/webpack && node node_modules/.bin/webpack --minimize",
+    "build": "bash node_modules/.bin/webpack && bash node_modules/.bin/webpack --minimize",
     "prepublish": "npm run build"
   },
   "keywords": [
@@ -17,8 +20,8 @@
     "fast"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/apility/instant-link.git"
+    "type": "git",
+    "url": "https://github.com/apility/instant-link.git"
   },
   "author": "Thomas Alrek <thomas@apility.no>",
   "license": "MIT",
