@@ -14338,6 +14338,9 @@
 	            var link = e.target;
 	            var href = link.href;
 	
+	            if (!/^https?:\/\//i.test(href)) return {
+	                    v: true
+	                };
 	            if (isExternalURL(href)) return {
 	                    v: true
 	                };
