@@ -8911,6 +8911,9 @@
 	var init = function init() {
 	    var _this = this;
 	
+	    if (typeof window.history === 'undefined') {
+	        return;
+	    }
 	    if (document.location.href.indexOf('file://') != 0) {
 	        (function () {
 	            var self = _this;
@@ -8957,47 +8960,81 @@
 	    value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	/**
+	 * Exports the Cache class
+	 * @module cache
+	 */
 	
 	var lzma = __webpack_require__(306);
 	
-	var Cache = function Cache(compress) {
-	    _classCallCheck(this, Cache);
+	/**
+	 * Creates a new Cache instance
+	 * @param {boolean} compress - Enable/disable compression
+	 */
 	
-	    this.compress = compress || false;
-	    this.data = {};
-	};
+	var Cache = function () {
+	    function Cache(compress) {
+	        _classCallCheck(this, Cache);
 	
-	Cache.prototype.store = function (key, val) {
-	    if (typeof this.data[key] === 'undefined') {
-	        try {
-	            if (this.compress) {
-	                var data = new Buffer(val, 'utf8');
-	                this.data[key] = lzma.compressFile(data);
-	            } else {
-	                this.data[key] = val;
-	            }
-	        } catch (e) {
-	            return;
-	        }
+	        this.compress = compress || false;
+	        this.data = {};
 	    }
-	};
 	
-	Cache.prototype.retrieve = function (key) {
-	    if (typeof this.data[key] !== 'undefined') {
-	        try {
-	            if (this.compress) {
-	                var data = lzma.decompressFile(this.data[key]);
-	                return new Buffer(data).toString('utf8');
-	            } else {
-	                return this.data[key];
+	    /**
+	     * Store a key in the cache
+	     * @param {string} key
+	     * @param {string} val
+	     */
+	
+	
+	    _createClass(Cache, [{
+	        key: 'store',
+	        value: function store(key, val) {
+	            if (typeof this.data[key] === 'undefined') {
+	                try {
+	                    if (this.compress) {
+	                        var data = new Buffer(val, 'utf8');
+	                        this.data[key] = lzma.compressFile(data);
+	                    } else {
+	                        this.data[key] = val;
+	                    }
+	                } catch (e) {
+	                    return;
+	                }
 	            }
-	        } catch (e) {
+	        }
+	
+	        /**
+	         * Retrieves a key from the cache
+	         * @param {string} key
+	         * @return {string}
+	         */
+	
+	    }, {
+	        key: 'retrieve',
+	        value: function retrieve(key) {
+	            if (typeof this.data[key] !== 'undefined') {
+	                try {
+	                    if (this.compress) {
+	                        var data = lzma.decompressFile(this.data[key]);
+	                        return new Buffer(data).toString('utf8');
+	                    } else {
+	                        return this.data[key];
+	                    }
+	                } catch (e) {
+	                    return undefined;
+	                }
+	            }
 	            return undefined;
 	        }
-	    }
-	    return undefined;
-	};
+	    }]);
+	
+	    return Cache;
+	}();
 	
 	exports.default = Cache;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(302).Buffer))
@@ -14461,4 +14498,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=instant-link-0.0.1.js.map
+//# sourceMappingURL=instant-link.js.map
