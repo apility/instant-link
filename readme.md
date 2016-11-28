@@ -20,9 +20,7 @@ InstantLink can also optionally compress the data (using LZMA), so even for larg
 
 ```html
 <script src="instant-link.min.js" data-no-instant></script>
-<script data-no-instant>
-    new InstantLink();
-</script>
+<script data-no-instant>new InstantLink();</script>
 ```
 
 That's basically all the boilerplate you need to get it going.
