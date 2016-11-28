@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>InstantLink</title>
+    </head>
+    <body>
+        <ul>
+            <li><a href="page1.html">Page 1</a></li>
+            <li><a href="page2.html">Page 2</a></li>
+        </ul>
+        <script src="../dist/instant-link.min.js" data-no-instant></script>
+        <script data-no-instant>new InstantLink();</script>
+        <script data-no-instant>
+            var i = 0;
+            setInterval(function(){
+                console.log(i);
+                i++;
+            }, 1000);
+        </script>
+    </body>
+</html>
