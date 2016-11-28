@@ -17,8 +17,8 @@ class Cache{
 
     /**
      * Store a key in the cache
-     * @param {string} key
-     * @param {string} val
+     * @param {string} key - Key to store
+     * @param {string} val - Value to store
      */
     store(key, val){
         if(typeof this.data[key] === 'undefined'){
@@ -37,7 +37,7 @@ class Cache{
 
     /**
      * Retrieves a key from the cache
-     * @param {string} key
+     * @param {string} key - Key to retrieve
      * @return {string}
      */
     retrieve(key){
