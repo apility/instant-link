@@ -1,6 +1,6 @@
 /**
  * Exports the fetchPage method
- * @module instant-link
+ * @module fetch-page
  */
 
 /**
@@ -9,7 +9,7 @@
  * @param {string} href - URL to fetch
  * @returns {Promise}
  */
-const fetchPage = function(href){
+function fetchPage(href){
     const localURLexpr = new RegExp("//" + location.host + "($|/)");
     let isLocal = (href.substring(0,4) === "http") ? localURLexpr.test(href) : true;
 

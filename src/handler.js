@@ -1,13 +1,18 @@
 /**
  * Exports the handler method
- * @module instant-link
+ * @module handler
  */
 
+
+/**
+ * Check if a given URL is local to the current website
+ * @param {string} url
+ * @returns {boolean}
+ */
 function isExternalURL(url) {
     var domain = function(url) {
         return url.replace('http://','').replace('https://','').split('/')[0];
     };
-
     return domain(location.href) !== domain(url);
 }
 
@@ -15,22 +20,16 @@ function isExternalURL(url) {
  * Event handler. Automatically fetch page if needed, and replace page content
  * @param {Event} e - Event to handle
  */
-const handler = function(e){
+function handler(e){
     e = window.e || e;
-
     let self = this;
 
     if (e.target.tagName == 'A'){
         let link = e.target;
         let href = link.href;
 
-        if(isExternalURL(href)){
-            return true;
-        }
-
-        if(link.getAttribute('data-no-instant') !== null){
-            return true;
-        }
+        if(isExternalURL(href)) return true;
+        if(link.getAttribute('data-no-instant') !== null) return true;
 
         let addListener = (el, data, href) => {
             el.addEventListener('click', function(e){

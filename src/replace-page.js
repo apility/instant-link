@@ -1,15 +1,18 @@
 /**
  * Exports the replacePage method
- * @module instant-link
+ * @module replace-page
  */
+
+const regex = /<script(.+)? ?data-no-instant(.+)? ?>((.|\n|\r| )+)?<\/script>/igm;
+const placeholder = "<!-- script removed - data-no-instant attribute -->";
 
 /**
  * Replaces the documents contents, and push state to window.history
  * @param {string} data - Data to replace in document
  * @param {string} url - URL of new data
  */
-const replacePage = function(data, url){
-    data = data.replace(this.noInstantExpr, this.options.comment ? "<!-- script removed - data-no-instant attribute -->" : "");
+function replacePage(data, url){
+    data = data.replace(regex, this.options.comment ? placeholder : "");
     document.open();
     document.write(data);
     document.close();

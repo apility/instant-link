@@ -3,22 +3,25 @@
  * @module instant-link
  */
 
-import init from './init';
 import Cache from './cache';
+
+import init from './init';
 import handler from './handler';
 import fetchPage from './fetch-page';
 import replacePage from './replace-page';
-import noInstantExpr from './no-instant-expr';
 
-/**
- * Creates a new InstantLink instance
- * @param {object} options
- * @param {boolean} [options.cache=true] - Enable/disable caching
- * @param {boolean} [options.compress=false] - Enable/disable compression
- * @param {string}  [options.event=onmouseover] - Event handler for triggering preload
- * @param {boolean} [options.comment=true] - If enabled, script tags with 'no-instant' data attribute will be replaced by comment
- */
+const regex = /<script(.+)? ?data-no-instant(.+)? ?>((.|\n|\r| )+)?<\/script>/igm;
+const placeholder = "<!-- script removed - data-no-instant attribute -->";
+
 class InstantLink{
+    /**
+     * Creates a new InstantLink instance
+     * @param {object} options
+     * @param {boolean} [options.cache=true] - Enable/disable caching
+     * @param {boolean} [options.compress=false] - Enable/disable compression
+     * @param {string}  [options.event=onmouseover] - Event handler for triggering preload
+     * @param {boolean} [options.comment=true] - If enabled, script tags with 'no-instant' data attribute will be replaced by comment
+     */
     constructor(options){
         this.options = {
             cache: true,
@@ -27,23 +30,16 @@ class InstantLink{
             comment: true
         }
         this.options = Object.assign(this.options, options);
-        if(this.options.cache){
-            this.cache = new Cache(this.options.compress);
-        }
+        if(this.options.cache) this.cache = new Cache(this.options.compress);
         this.init();
     }
 }
 
-/** @memberof InstantLink */
 InstantLink.prototype.init = init;
-/** @memberof InstantLink */
 InstantLink.prototype.handler = handler;
-/** @memberof InstantLink */
 InstantLink.prototype.fetchPage = fetchPage;
-/** @memberof InstantLink */
 InstantLink.prototype.replacePage = replacePage;
-/** @memberof InstantLink */
-InstantLink.prototype.noInstantExpr = noInstantExpr;
 
-window.InstantLink = InstantLink;
+if(typeof window !== 'undefined') window.InstantLink = InstantLink;
+
 export default InstantLink;
