@@ -31,7 +31,7 @@ On a script, this tells InstantLink that the script should be removed if loaded 
 
 For regular links, this directive tells InstantLink to treat this link as a normal link, so clicking it will just redirect.
 
-```
+```html
 <a href="index.php" data-no-instant>Regular link</a>
 ```
 
