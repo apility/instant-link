@@ -1,6 +1,6 @@
 {
   "name": "instant-link",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Speeds up websites by preloading links",
   "main": "src/index.js",
   "scripts": {
@@ -13,7 +13,9 @@
     "speed",
     "instant",
     "link",
-    "fast"
+    "fast",
+    "caching",
+    "ajax"
   ],
   "repository": {
     "type": "git",
