@@ -25,11 +25,12 @@ class InstantLink{
         this.options = {
             cache: true,
             compress: false,
+            fullCompress: false,
             event: 'mouseover',
             comment: true
         }
         this.options = Object.assign(this.options, options);
-        if(this.options.cache) this.cache = new Cache(this.options.compress);
+        if(this.options.cache) this.cache = new Cache(this.options);
         this.init();
     }
 }
