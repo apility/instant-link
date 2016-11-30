@@ -8845,11 +8845,12 @@
 	    this.options = {
 	        cache: true,
 	        compress: false,
+	        fullCompress: false,
 	        event: 'mouseover',
 	        comment: true
 	    };
 	    this.options = Object.assign(this.options, options);
-	    if (this.options.cache) this.cache = new Cache(this.options.compress);
+	    if (this.options.cache) this.cache = new Cache(this.options);
 	    this.init();
 	};
 	
@@ -8877,40 +8878,76 @@
 	 * @module cache
 	 */
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var lzma = __webpack_require__(305);
+	var defaults = {
+	    compress: false,
+	    fullCompress: false
+	};
+	
+	var lzma = void 0;
 	
 	/**
 	 * Creates a new Cache instance
-	 * @param {boolean} compress - Enable/disable compression
+	 * @param {object} options - Constructor options
+	 * @param {object} options.compress - Enable/disable compression
+	 * @param {boolean} options.fullCompress - Compress data in one Buffer
 	 */
 	
 	var Cache = function () {
-	    function Cache(compress) {
+	    function Cache(options) {
 	        _classCallCheck(this, Cache);
 	
-	        this.compress = compress || false;
+	        this.options = defaults;
+	        if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+	            this.options = Object.assign({}, this.options, options);
+	        }
 	        this.data = {};
+	        if (this.options.compress) {
+	            lzma = __webpack_require__(305);
+	            if (this.options.fullCompress) {
+	                this.data = this.compress(JSON.stringify(this.data));
+	            }
+	        }
 	    }
 	
-	    /**
-	     * Store a key in the cache
-	     * @param {string} key - Key to store
-	     * @param {string} val - Value to store
-	     */
-	
-	
 	    _createClass(Cache, [{
+	        key: 'decompress',
+	        value: function decompress(data) {
+	            var uncompressed = lzma.decompressFile(data);
+	            return new Buffer(uncompressed, 'utf8').toString();
+	        }
+	    }, {
+	        key: 'compress',
+	        value: function compress(data) {
+	            var compressed = lzma.compressFile(new Buffer(data, 'utf8'));
+	            return compressed;
+	        }
+	
+	        /**
+	         * Store a key in the cache
+	         * @param {string} key - Key to store
+	         * @param {string} val - Value to store
+	         */
+	
+	    }, {
 	        key: 'store',
 	        value: function store(key, val) {
 	            if (typeof this.data[key] === 'undefined') {
 	                try {
-	                    if (this.compress) {
-	                        var data = new Buffer(val, 'utf8');
-	                        this.data[key] = lzma.compressFile(data);
+	                    if (this.options.compress) {
+	                        if (this.options.fullCompress) {
+	                            var data = JSON.parse(this.decompress(this.data).toString());
+	                            data[key] = val;
+	                            this.data = this.compress(JSON.stringify(data));
+	                        } else {
+	                            var _data = this.compress(val);
+	                            this.data[key] = _data;
+	                        }
 	                    } else {
 	                        this.data[key] = val;
 	                    }
@@ -8929,19 +8966,21 @@
 	    }, {
 	        key: 'retrieve',
 	        value: function retrieve(key) {
-	            if (typeof this.data[key] !== 'undefined') {
-	                try {
-	                    if (this.compress) {
-	                        var data = lzma.decompressFile(this.data[key]);
-	                        return new Buffer(data).toString('utf8');
+	            try {
+	                if (this.options.compress) {
+	                    if (this.options.fullCompress) {
+	                        var data = JSON.parse(this.decompress(this.data));
+	                        return data[key];
 	                    } else {
-	                        return this.data[key];
+	                        var _data2 = this.decompress(this.data[key]);
+	                        return _data2;
 	                    }
-	                } catch (e) {
-	                    return undefined;
+	                } else {
+	                    return this.data[key];
 	                }
+	            } catch (e) {
+	                return undefined;
 	            }
-	            return undefined;
 	        }
 	    }]);
 	
