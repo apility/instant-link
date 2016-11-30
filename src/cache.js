@@ -5,16 +5,42 @@
  * @module cache
  */
 
-const lzma = require('lzma-purejs');
+const defaults = {
+    compress: false,
+    fullCompress: false
+};
+
+let lzma;
 
 /**
  * Creates a new Cache instance
- * @param {boolean} compress - Enable/disable compression
+ * @param {object} options - Constructor options
+ * @param {object} options.compress - Enable/disable compression
+ * @param {boolean} options.fullCompress - Compress data in one Buffer
  */
 class Cache{
-    constructor(compress){
-        this.compress = compress || false;
-        this.data = {}
+    constructor(options){
+        this.options = defaults;
+        if(typeof options === 'object'){
+            this.options = Object.assign({}, this.options, options);
+        }
+        this.data = {};
+        if(this.options.compress){
+            lzma = require('lzma-purejs');
+            if(this.options.fullCompress){
+                this.data = this.compress(JSON.stringify(this.data));
+            }
+        }
+    }
+
+    decompress(data){
+        let uncompressed = lzma.decompressFile(data);
+        return new Buffer(uncompressed, 'utf8').toString();
+    }
+
+    compress(data){
+        let compressed = lzma.compressFile(new Buffer(data, 'utf8'));
+        return compressed;
     }
 
     /**
@@ -25,9 +51,15 @@ class Cache{
     store(key, val){
         if(typeof this.data[key] === 'undefined'){
             try{
-                if(this.compress){
-                    let data = new Buffer(val, 'utf8');
-                    this.data[key] = lzma.compressFile(data);
+                if(this.options.compress){
+                    if(this.options.fullCompress){
+                        let data = JSON.parse(this.decompress(this.data).toString());
+                        data[key] = val;
+                        this.data = this.compress(JSON.stringify(data));
+                    }else{
+                        let data = this.compress(val);
+                        this.data[key] = data;
+                    }
                 }else{
                     this.data[key] = val;
                 }
@@ -43,20 +75,21 @@ class Cache{
      * @return {string}
      */
     retrieve(key){
-        if(typeof this.data[key] !== 'undefined'){
-            try{
-                if(this.compress){
-                    let data = lzma.decompressFile(this.data[key]);
-                    return new Buffer(data).toString('utf8');
-
+        try{
+            if(this.options.compress){
+                if(this.options.fullCompress){
+                    let data = JSON.parse(this.decompress(this.data));
+                    return data[key];
                 }else{
-                    return this.data[key];
+                    let data = this.decompress(this.data[key]);
+                    return data;
                 }
-            }catch(e){
-                return undefined;
+            }else{
+                return this.data[key];
             }
+        }catch(e){
+            return undefined;
         }
-        return undefined;
     }
 }
 

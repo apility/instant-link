@@ -12,6 +12,8 @@ InstantLink makes links faster by preloading them the moment you hover them.
 
 This usually means that by the time you actually click the link, it is already downloaded, and so you don't have to wait for it to load, it appears immediatly.
 
+This basically means that InstantLink transforms all your links into ajax requests, and you webpage will behave like a single page application.
+
 InstantLink will also cache the preloaded data, so the next time you click the link, it will be even faster.
 
 InstantLink can also optionally compress the data (using LZMA), so even for larger pages, it will not use a lot of memory.
@@ -43,11 +45,26 @@ If you have enabled caching, but want to prevent caching of specific links, you 
 
 ### Options
 
+| Name         | Type    | Default   | Description                                                                                  |
+|--------------|---------|-----------|----------------------------------------------------------------------------------------------|
+| cache        | boolean | true      | Enables or disabled caching                                                                  |
+| compress     | boolean | false     | If cache enabled, enables LZMA compression of data                                           |
+| fullCompress | boolean | false     | If compress enabled, compress everything in one buffer. Uses less memory, but is much slower |
+| event        | string  | mouseover | The event handler that triggers an InstantLink fetchPage                                     |
+| comment      | boolean | true      | If enabled, replaces scripts with a data-no-instant attribute with an html comment           |
+
 ```javascript
-{
-    cache: boolean,         //Enables or disabled caching. Default: true
-    compress: boolean,      //If cache is enabled, enables or disables LZMA compression on data. Default: true
-    event: string,          //The event handler that triggers InstantLink. Default: 'mouseover'
-    comment: boolean        //If enabled, replaces scripts with data-no-instant with a html comment. Default: true
+//Example
+
+var options = {
+    cache: true
+    compress: true,
+    fullCompress: true,
+    event: 'mouseover',
+    comment: true
 }
+
+new InstantLink(options);
 ```
+
+
